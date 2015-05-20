@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply from: rootProject.file('gradle/android.gradle')
 
 dependencies {
-  compile project(':analytics')
+  compile project(':analytics-core')
   compile project(':analytics-wear')
 }
 
