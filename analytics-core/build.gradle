@@ -2,6 +2,10 @@ apply plugin: 'com.android.library'
 
 apply from: rootProject.file('gradle/android.gradle')
 
+dependencies {
+  androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+}
+
 apply from: rootProject.file('gradle/checkstyle-library.gradle')
 apply from: rootProject.file('gradle/attach-jar.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
