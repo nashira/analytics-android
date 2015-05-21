@@ -266,7 +266,7 @@ class SegmentDispatcher extends AbstractIntegration {
     }
 
     if (logLevel.log()) {
-      debug("Uploading payloads in queue to Segment.");
+      debug("Uploading payloads (%s) in queue to Segment.", queueFile.size());
     }
     int payloadsUploaded;
     try {

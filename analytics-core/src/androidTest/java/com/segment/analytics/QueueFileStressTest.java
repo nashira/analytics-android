@@ -58,8 +58,8 @@ public class QueueFileStressTest extends AndroidTestCase {
         long id = System.currentTimeMillis();
         for (int i = 1; i <= veryLargeFlushSize - 1; i++) {
             id++;
-            analyticsInstance.track("FJK QueueFileStressTest - testQueueFileUnderStress_track", null, null);
-            analyticsInstance.screen("FJK QueueFileStressTest - testQueueFileUnderStress_screen", null);
+            analyticsInstance.track("FJK QueueFileStressTest - testQueueFileUnderStress_track" + i, null, null);
+            analyticsInstance.screen("FJK QueueFileStressTest - testQueueFileUnderStress_screen" + i, null);
         }
         analyticsInstance.flush();
 

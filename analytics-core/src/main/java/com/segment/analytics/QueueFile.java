@@ -16,6 +16,7 @@
 package com.segment.analytics;
 
 import java.io.Closeable;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -141,9 +142,10 @@ class QueueFile implements Closeable {
     raf.seek(0);
     raf.readFully(buffer);
     fileLength = readInt(buffer, 0);
-    if (fileLength > raf.length()) {
+    long rafLength = raf.length();
+    if (fileLength > rafLength) {
       throw new IOException(
-          "File is truncated. Expected length: " + fileLength + ", Actual length: " + raf.length());
+          "File is truncated. Expected length: " + fileLength + ", Actual length: " + rafLength);
     } else if (fileLength <= 0) {
       throw new IOException(
           "File is corrupt; length stored in header (" + fileLength + ") is invalid.");
@@ -252,7 +254,12 @@ class QueueFile implements Closeable {
     position = wrapPosition(position);
     if (position + count <= fileLength) {
       raf.seek(position);
-      raf.readFully(buffer, offset, count);
+      try {
+        raf.readFully(buffer, offset, count);
+      } catch (EOFException e) {
+        long realFileLength = raf.length();
+        throw e;
+      }
     } else {
       // The read overlaps the EOF.
       // # of bytes to read before the EOF.
