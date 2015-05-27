@@ -27,8 +27,6 @@ public class QueueFileStressTest extends AndroidTestCase {
         // file operations with a renamed database/file
         // name (prefixes default names with a given prefix).
         context = new RenamingDelegatingContext(getContext(), "test_");
-        Analytics.Builder builder = new Analytics.Builder(context, writeKey);
-        analyticsInstance = builder.logLevel(Analytics.LogLevel.BASIC).build();
     }
 
     @Override
@@ -41,7 +39,7 @@ public class QueueFileStressTest extends AndroidTestCase {
     public void testQueueFileUnderStress_track() {
 
         Analytics.Builder builder = new Analytics.Builder(context, writeKey);
-        analyticsInstance = builder.logLevel(Analytics.LogLevel.VERBOSE).
+        Analytics analyticsInstance = builder.logLevel(Analytics.LogLevel.VERBOSE).
                 flushInterval(300, TimeUnit.SECONDS).
                 flushQueueSize(250).
                 build();
@@ -66,7 +64,7 @@ public class QueueFileStressTest extends AndroidTestCase {
     }
 
     public void sleepUntilFlushTimerExpires() {
-       sleep(Utils.DEFAULT_FLUSH_INTERVAL + 3000);
+        sleep(Utils.DEFAULT_FLUSH_INTERVAL + 3000);
     }
 
     public void sleepUntilSettingsLoaded() {
